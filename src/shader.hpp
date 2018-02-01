@@ -1,13 +1,18 @@
-#ifndef DaevaRenderCoreShader_h__
-#define DaevaRenderCoreShader_h__
+#ifndef REX_SHADER_HPP_
+#define REX_SHADER_HPP_
 
-#include <bitcore/Asset.h>
-
-namespace detail
+namespace rex
 {
-class GDI_ShaderProgram;
-class GDI_Shader;
+	class shader
+	{
+	public:
+		explicit shader()
+		{
+			
+		}
+	};
 }
+
 
 class DAEVA_API ShaderSource
 {
@@ -82,4 +87,4 @@ namespace detail {
         int refCount;
     };
 }
-#endif // DaevaRenderCoreShader_h__
+#endif // REX_SHADER_HPP_
