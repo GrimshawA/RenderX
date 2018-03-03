@@ -173,9 +173,32 @@ RxTextureImpl* GDI_GL3::createTexture2D()
     return texture;
 }
 
+void GDI_GL3::activate(pipeline p)
+{
+    // In OpenGL, activating a pipeline only means keeping state around for using in rendering
+    _pipeline = p;
+}
+
+void GDI_GL3::apply(command_buffer buffer)
+{
+    commands = resource_cast<gl_command_buffer>(buffer);
+
+    for (std::size_t i = 0; i < commands.size(); ++i)
+    {
+        gl_command& cmd = commands[i];
+
+        switch (cmd.type)
+        {
+            case DRAW_BUFFER: draw(buffer);
+            case SET_PIPELINE: activate(pipeline);
+        }
+    }
+}
+
 void GDI_GL3::draw(const RxVertexArray& vertexData)
 {
-
+    // draw should activate a pipeline and draw the array
+    auto buffer = resource_cast<gl_buffer>(vertexData);
 }
 
 void GDI_GL3::draw(const VertexArray2D& varray)
