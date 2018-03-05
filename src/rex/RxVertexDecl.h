@@ -8,7 +8,7 @@
     \class Format
     \brief Vertex format specification
 */
-class DAEVA_API RxVertexDecl
+class REX_API RxVertexDecl
 {
 public:
 
@@ -22,7 +22,7 @@ public:
 
     /// \class Attribute
     /// \brief One of the vertex components
-    class DAEVA_API Attribute
+    class REX_API Attribute
     {
     public:
         Attribute();

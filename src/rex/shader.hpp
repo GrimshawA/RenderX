@@ -14,7 +14,7 @@ namespace rex
 }
 
 
-class DAEVA_API ShaderSource
+class REX_API ShaderSource
 {
 public:
     std::string source;
@@ -25,7 +25,7 @@ public:
     \class Shader
     \brief Encapsulates a shader program
 */
-class DAEVA_API Shader
+class REX_API Shader
 {
 public:
     enum Types
@@ -57,7 +57,7 @@ namespace detail {
         \class GDI_ShaderProgram
         \brief Interface for implementing shader programs for different graphics API's
     */
-    class DAEVA_API GDI_ShaderProgram
+    class REX_API GDI_ShaderProgram
     {
     public:
 

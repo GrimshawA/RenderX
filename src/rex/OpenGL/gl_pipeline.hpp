@@ -6,7 +6,7 @@ namespace rex::gl
 	class pipeline
 	{
 	public:
-		
+		GLuint primitive;
 	};
 }
 

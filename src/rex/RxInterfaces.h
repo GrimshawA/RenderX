@@ -13,7 +13,7 @@ class Image;
 \class GDI_Texture2D
 \brief Interface for implementing regular textures
 */
-class DAEVA_API RxTextureImpl
+class REX_API RxTextureImpl
 {
 public:
 
@@ -56,7 +56,7 @@ public:
     \class GDI_VertexBuffer
     \brief Abstract interface for handling on-gpu geometry buffers
 */
-class DAEVA_API RxVertexBufferImpl
+class REX_API RxVertexBufferImpl
 {
 public:
 
@@ -81,7 +81,7 @@ namespace detail
 	\class GDI_TextureCubemap
 	\brief Interface for implementing cubemap textures
 	*/
-	class DAEVA_API GDI_CubeTexture
+	class REX_API GDI_CubeTexture
 	{
 	public:
 
@@ -91,7 +91,7 @@ namespace detail
 	\class GDI_Texture3D
 	\brief Interface for implementing 3D textures on any graphics API
 	*/
-	class DAEVA_API GDI_Texture3D
+	class REX_API GDI_Texture3D
 	{
 	public:
 
@@ -101,7 +101,7 @@ namespace detail
 	\class GDI_IndexBuffer
 	\brief Abstract interface for handling on-gpu index buffers
 	*/
-	class DAEVA_API GDI_IndexBuffer
+	class REX_API GDI_IndexBuffer
 	{
 	public:
 
