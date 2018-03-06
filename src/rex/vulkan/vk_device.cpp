@@ -98,12 +98,15 @@ namespace rex
             {
                 case command_type::BIND_INDEX_BUFFER:
                 case command_type::BIND_VERTEX_BUFFER:
+                    VkBuffer vertexBuffers[] = {vertexBuffer};
+                    VkDeviceSize offsets[] = {0};
+                    vkCmdBindVertexBuffers(commandBuffers[i], 0, 1, vertexBuffers, offsets);
                 case command_type::CLEAR_COLOR:
                 case command_type::CLEAR_DEPTH:
                 case command_type::DISPATCH:
                 case command_type::DISPATCH_INDIRECT:
                 case command_type::DRAW:
-                    vkCmdDraw(commandBuffers[0], 3, 1, 0, 0);
+                    vkCmdDraw(commandBuffers[i], static_cast<uint32_t>(vertices.size()), 1, 0, 0);
                 case command_type::DRAW_INDEXED:
                 case command_type::DRAW_INDEXED_INDIRECT:
                 case command_type::DRAW_INDIRECT:
@@ -113,6 +116,7 @@ namespace rex
                 case command_type::SET_BLEND_CONSTANTS:
                 case command_type::SET_LINE_WIDTH:
                 case command_type::SET_SCISSOR:
+                    vkCmdSetScissor(commandBuffers[0], 0, 0, 0);
                 case command_type::SET_VIEWPORT:
                 default:;
             }
@@ -123,6 +127,11 @@ namespace rex
         if (vkEndCommandBuffer(commandBuffers[0]) != VK_SUCCESS) {
             throw std::runtime_error("failed to record command buffer!");
         }
+    }
+
+    void vk_device::wait()
+    {
+        vkDeviceWaitIdle(_device);
     }
 }
 

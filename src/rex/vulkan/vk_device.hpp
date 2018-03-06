@@ -17,6 +17,8 @@ namespace rex
 
         void submit(const command_buffer& buffer) override;
 
+        void wait() override;
+
         void createLogicalDevice() 
         {
             QueueFamilyIndices indices = findQueueFamilies(physicalDevice);

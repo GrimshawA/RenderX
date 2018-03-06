@@ -26,6 +26,7 @@ namespace rex
     {
     public:
         virtual void submit(const command_buffer& buffer) = 0;
+        virtual void wait() = 0;
 
 
     protected:
