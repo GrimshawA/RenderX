@@ -1,6 +1,8 @@
 #ifndef REX_VK_BUFFER_HPP_
 #define REX_VK_BUFFER_HPP_
 
+#include "vk_includes.hpp"
+
 namespace rex
 {
     class vk_buffer

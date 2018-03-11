@@ -16,7 +16,10 @@ file(GLOB vk_sources
     "src/rex/vulkan/*.hpp"
 )
 
-add_library(rex SHARED ${rex_sources} ${gl_sources} ${vk_sources})
+add_library(rex SHARED ${rex_sources} 
+					   ${gl_sources}
+					   #${vk_sources}
+					   )
 
 if (Vulkan_FOUND)
 	target_include_directories(rex PRIVATE ../glfw/include
