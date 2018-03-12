@@ -1,12 +1,20 @@
 #ifndef REX_GL_PIPELINE_HPP_
 #define REX_GL_PIPELINE_HPP_
 
-namespace rex::gl
+#include "gl_shader.hpp"
+#include <memory>
+
+namespace rex
 {
-	class pipeline
+    class gl_pipeline
 	{
 	public:
-		GLuint primitive;
+        ~gl_pipeline();
+
+        static gl_pipeline* make_default();
+
+    public:
+        gl_shader_program* program {nullptr};
 	};
 }
 

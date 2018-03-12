@@ -6,6 +6,8 @@
 
 namespace rex
 {
+    class vk_device;
+
     class vk_pipeline
     {
     public:

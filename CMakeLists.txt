@@ -9,6 +9,7 @@ file(GLOB rex_sources
 file(GLOB gl_sources
     "src/rex/opengl/*.cpp"
     "src/rex/opengl/*.hpp"
+    "src/rex/opengl/glew/*.c"
 )
 
 file(GLOB vk_sources
@@ -18,12 +19,13 @@ file(GLOB vk_sources
 
 add_library(rex SHARED ${rex_sources} 
 					   ${gl_sources}
-					   #${vk_sources}
+                                           ${vk_sources}
 					   )
 
 if (Vulkan_FOUND)
 	target_include_directories(rex PRIVATE ../glfw/include
-	                                       ${Vulkan_INCLUDE_DIR})
+                                               ${Vulkan_INCLUDE_DIR}
+                                               src/rex/opengl/glew)
 
 	target_link_libraries(rex ${OPENGL_gl_LIBRARY} ${Vulkan_LIBRARY} glfw) 
 	

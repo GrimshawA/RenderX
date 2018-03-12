@@ -1,83 +1,88 @@
-#ifndef NephilimGraphicsGLShader_h__
-#define NephilimGraphicsGLShader_h__
+#ifndef REX_GL_SHADER_HPP_
+#define REX_GL_SHADER_HPP_
 
-#include <bitcore/Config.h>
-#include <RenderX/RxShader.h>
-#include <bitcore/String.h>
-
+#include "../config.hpp"
+#include "gl_helpers.hpp"
 #include <vector>
+#include <string>
 
-/**
-	\class GLShader
-	\brief Single shader program (OpenGL Shader: GLSL)
-*/
-class REX_API GLShader : public detail::GDI_ShaderProgram
+namespace rex
 {
-public:
-	/// Constructs an uninitialized shader
-	/// The program identifier is initialized at 0.
-	/// This means an invalid shader, which causes, not guaranteed, that the fixed-pipeline is activated
-	GLShader();
 
-	/// Safe release
-	~GLShader();
+    /**
+        \class gl_shader_program
+        \brief Single shader program (OpenGL Shader: GLSL)
+    */
+    class REX_API gl_shader_program
+    {
+    public:
+        /// Constructs an uninitialized shader
+        /// The program identifier is initialized at 0.
+        /// This means an invalid shader, which causes, not guaranteed, that the fixed-pipeline is activated
+        explicit gl_shader_program();
 
-public: // Shader API
+        /// Safe release
+        ~gl_shader_program();
 
-    void load(const std::vector<ShaderSource>& sources) override;
+    public: // Shader API
 
-	/// Reverts the shader back to an unitialized state
-	void release();
+        using ShaderSource = std::string;
 
-	/// Binds variables in the program to predefined location index
-	/// Just pass the location you want to be assigned to the variable name
-	/// Calling this function only makes sense BEFORE calling create().
-	void addAttributeLocation(unsigned int location, const String& name);
+        void load(const std::vector<ShaderSource>& sources);
 
-	/// Creates and links the program from previously compiled unit processors
-	bool create();
+        /// Reverts the shader back to an unitialized state
+        void release();
 
-	enum ShaderTypes
-	{
-		VertexUnit = 0,
-		FragmentUnit = 1
-	};
+        /// Binds variables in the program to predefined location index
+        /// Just pass the location you want to be assigned to the variable name
+        /// Calling this function only makes sense BEFORE calling create().
+        void addAttributeLocation(unsigned int location, const std::string& name);
 
-	/// Compiles a shader to be linked when create() is called
-	bool loadShader(ShaderTypes type, const char* source);
+        /// Creates and links the program from previously compiled unit processors
+        bool create();
 
-	/// Compiles a shader to be linked when create() is called, from a source file
-	bool loadShaderFromFile(ShaderTypes type, const String& filename);
+        enum ShaderTypes
+        {
+            VertexUnit = 0,
+            FragmentUnit = 1
+        };
 
-	/// Binds the shader to the GPU
-	void bind() const;
+        /// Compiles a shader to be linked when create() is called
+        bool loadShader(ShaderTypes type, const char* source);
 
-	/// Returns whether or not shaders can be used at the moment
-	/// The result of this function depends primarily on the machine you're running the program on
-	static bool isAvailable();
+        /// Compiles a shader to be linked when create() is called, from a source file
+        bool loadShaderFromFile(ShaderTypes type, const std::string& filename);
 
-	/// Returns the internal id of the currently in-use program by OpenGL
-	/// Returns 0 if none is active.
-	static unsigned int getCurrentActiveProgram();
+        /// Binds the shader to the GPU
+        void bind() const;
 
-	/// Returns the string
-	static String getVersion();
+        /// Returns whether or not shaders can be used at the moment
+        /// The result of this function depends primarily on the machine you're running the program on
+        static bool isAvailable();
 
-	void setUniformi(const String& uniform, int value);
+        /// Returns the internal id of the currently in-use program by OpenGL
+        /// Returns 0 if none is active.
+        static unsigned int getCurrentActiveProgram();
 
-	bool setUniformMatrix(const String& uniform, const float* values);
-	bool setUniformTexture(const String& uniform, int textureUnit);
+        /// Returns the string
+        static std::string getVersion();
 
-	bool setUniformVec4(const String& uniform, const float* values);
-	bool setUniformVec3(const String& uniform, const float* values);
-	bool setUniformFloat(const String& uniform, float value);
+        void setUniformi(const std::string& uniform, int value);
 
-	unsigned int getIdentifier();
+        bool setUniformMatrix(const std::string& uniform, const float* values);
+        bool setUniformTexture(const std::string& uniform, int textureUnit);
 
-public:
-	unsigned int m_id; ///< Internal shader identifier
-	std::vector<std::pair<ShaderTypes, unsigned int> > m_shaders; ///< List of compiled shaders
-	std::vector<std::pair<unsigned int, String> > m_attribs; ///< List of pre-binded attribute locations
-};
+        bool setUniformVec4(const std::string& uniform, const float* values);
+        bool setUniformVec3(const std::string& uniform, const float* values);
+        bool setUniformFloat(const std::string& uniform, float value);
 
-#endif // NephilimGraphicsGLShader_h__
+        unsigned int getIdentifier();
+
+    public:
+        unsigned int m_id; ///< Internal shader identifier
+        std::vector<std::pair<ShaderTypes, unsigned int> > m_shaders; ///< List of compiled shaders
+        std::vector<std::pair<unsigned int, std::string> > m_attribs; ///< List of pre-binded attribute locations
+    };
+}
+
+#endif // REX_GL_SHADER_HPP_

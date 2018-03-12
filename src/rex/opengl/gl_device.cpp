@@ -1,26 +1,45 @@
 #include "gl_device.hpp"
+#include "gl_pipeline.hpp"
 #include "gl_vertex_buffer.hpp"
+#include "gl_default_shaders.hpp"
 
 namespace rex
 {
-//    void gl_device::apply(command_buffer buffer)
-//    {
-//        commands = resource_cast<gl_command_buffer>(buffer);
+    gl_device::gl_device()
+    {
+        cglPrepareExtensions();
+        glDisable(GL_LIGHTING);
+    }
 
-//        for (std::size_t i = 0; i < commands.size(); ++i)
-//        {
-//            gl_command& cmd = commands[i];
+    void gl_device::submit(const command_buffer& buffer)
+    {
+        for (std::size_t i = 0; buffer._cmds.size(); ++i)
+        {
+            auto& cmd = buffer._cmds[i];
 
-//            switch (cmd.type)
-//            {
-//                case DRAW_BUFFER: draw(buffer);
-//                case SET_PIPELINE: activate(pipeline);
-//            }
-//        }
-//    }
+            switch(cmd.type)
+            {
+                case command_type::DRAW:
+                    draw(cmd.handle.cast<gl_vertex_buffer>());
+                break;
 
-//    inline void gl_device::draw_indexed(gl_vertex_buffer& buffer)
-//    {
+                case command_type::SET_PIPELINE:
+                    set_pipeline(cmd.handle.cast<gl_pipeline>());
+                break;
+            }
+        }
+    }
+
+    void gl_device::set_pipeline(gl_pipeline* p)
+    {
+        _pipeline = p;
+
+        // Activate the program the pipeline contains
+        glUseProgram(p->program->m_id);
+    }
+
+    void gl_device::draw(gl_vertex_buffer* buffer)
+    {
 //        glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId1);         // for vertex coordinates
 //        glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, vboId2); // for indices
 
@@ -36,83 +55,8 @@ namespace rex
 //        // bind with 0, so, switch back to normal pointer operation
 //        glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
 //        glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
-//    }
+    }
 }
-
-////#include <bitcore/Config.h>
-
-//#include <RenderX/OpenGL/gl_device.h>
-//#include <RenderX/OpenGL/GLFramebuffer.h>
-//#include <RenderX/Impl/OpenGL/RxTextureGL.h>
-//#include <RenderX/OpenGL/GLHelpers.h>
-//#include <RenderX/RxTexture.h>
-
-//#include <bitcore/Logger.h>
-//#include <bitcore/math/Math.h>
-//#include <bitcore/math/Matrix.h>
-////#include <bitcore/Graphics/View.h>
-//#include <iostream>
-
-//NEPHILIM_NS_BEGIN
-
-//static const char gVertexSource[] =
-//        "#version 120\n"
-//        "attribute vec4 vertex;\n"
-//        "attribute vec4 color;\n"
-//        "attribute vec2 texCoord;\n"
-//        "uniform mat4 projection = mat4(1);\n"
-//        "uniform mat4 model = mat4(1);\n"
-//        "uniform mat4 view = mat4(1);\n"
-//        "varying vec4 outColor;\n"
-//        "varying vec2 texUV;\n"
-//        "void main() {\n"
-//        "  gl_Position = projection * view * model * vertex;\n"
-//        "  outColor = color;\n"
-//        "  texUV = texCoord;\n"
-//        "}\n";
-
-//static const char gFragmentSource[] =
-//        "#version 120\n"
-//        "uniform sampler2D texture;\n"
-//        "varying vec4 outColor;\n"
-//        "varying vec2 texUV;\n"
-//        "void main() {\n"
-//        " if(texture2D(texture,texUV).a == 0) discard;"
-//        "   gl_FragColor = texture2D(texture, texUV) * outColor;\n"
-//        "   vec4 c = texture2D(texture, texUV) * outColor;"
-//        "   gl_FragColor = c * c.a;"
-//        "}\n";
-
-
-//gl_device::gl_device()
-//    : GDI_OpenGLBase()
-//{
-//    cglPrepareExtensions();
-
-//    m_shaderUsageHint = true;
-//    m_type = OpenGL;
-//    m_name = "OpenGL";
-
-//    m_defaultShader.loadShader(GLShader::VertexUnit, gVertexSource);
-//    m_defaultShader.loadShader(GLShader::FragmentUnit, gFragmentSource);
-//    m_defaultShader.addAttributeLocation(0, "vertex");
-//    m_defaultShader.addAttributeLocation(1, "color");
-//    m_defaultShader.addAttributeLocation(2, "texCoord");
-//    m_defaultShader.create();
-//    m_defaultShader.bind();
-
-//    glDisable(GL_LIGHTING);
-//}
-
-//void gl_device::init()
-//{
-//    RenderCore::init();
-//}
-
-//const char* gl_device::getAdapterName()
-//{
-//    return (char *)glGetString(GL_RENDERER);
-//}
 
 ///// This function will create a new shader program from the raw code
 ///// It runs a preprocessing step to identify what portions belong to what shader
@@ -213,19 +157,6 @@ namespace rex
 //    return texture;
 //}
 
-//void gl_device::activate(pipeline p)
-//{
-//    // In OpenGL, activating a pipeline only means keeping state around for using in rendering
-//    _pipeline = p;
-//}
-
-
-//void gl_device::draw(const RxVertexArray& vertexData)
-//{
-//    // draw should activate a pipeline and draw the array
-//    auto buffer = resource_cast<gl_buffer>(vertexData);
-//}
-
 //void gl_device::draw(const VertexArray2D& varray)
 //{
 //    const char* data  = reinterpret_cast<const char*>(&varray.m_vertices[0]);
@@ -263,50 +194,3 @@ namespace rex
 //        glDisableClientState(GL_VERTEX_ARRAY);
 //    }
 //}
-
-//void gl_device::setDefaultShader()
-//{
-//    if(m_shaderUsageHint)
-//    {
-//        m_activeShader = &m_defaultShader;
-//        m_defaultShader.bind();
-//    }
-//    else
-//    {
-//        m_activeShader = NULL;
-//        glUseProgram(0);
-//    }
-//}
-
-//void gl_device::setShader(detail::GDI_ShaderProgram* program)
-//{
-//    m_activeShader = static_cast<GLShader*>(program);
-//    if (m_activeShader)
-//    {
-//        static_cast<GLShader*>(program)->bind();
-//    }
-//}
-
-//void gl_device::setProjectionMatrix(const mat4& projection)
-//{
-//    RenderCore::setProjectionMatrix(projection);
-//    if(m_activeShader)
-//        static_cast<GLShader*>(m_activeShader)->setUniformMatrix("projection", projection.get());
-//}
-
-//void gl_device::setViewMatrix(const mat4& view)
-//{
-//    RenderCore::setViewMatrix(view);
-//    if(m_activeShader)
-//        static_cast<GLShader*>(m_activeShader)->setUniformMatrix("view", view.get());
-//}
-
-//void gl_device::setModelMatrix(const mat4& model)
-//{
-//    RenderCore::setModelMatrix(model);
-//    if(m_activeShader)
-//        static_cast<GLShader*>(m_activeShader)->setUniformMatrix("model", model.get());
-//}
-
-//NEPHILIM_NS_END
-//#endif

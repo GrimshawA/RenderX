@@ -8,6 +8,13 @@ namespace rex
 	*/
 	class handle
 	{
+    public:
+        template<typename T>
+        T* cast() const
+        {
+            return static_cast<T*>(_d1);
+        }
+
 	private:
 		void* _d1;
 		void* _d2;

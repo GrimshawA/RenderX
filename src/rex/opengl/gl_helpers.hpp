@@ -1,14 +1,12 @@
-#ifndef NephilimGLHelpers_h__
-#define NephilimGLHelpers_h__
-
-#include <bitcore/Config.h>
+#ifndef REX_GL_INCLUDES_HPP_
+#define REX_GL_INCLUDES_HPP_
 
 void cglPrepareExtensions();
 
 /// All desktop platforms
-#if defined NEPHILIM_DESKTOP
+#if defined __WIN32
+#define GLEW_STATIC
 #include <GL/glew.h>
-
 #ifdef NEPHILIM_OSX
 #include <OpenGL/gl.h>
 #else
@@ -52,4 +50,4 @@ void cglPrepareExtensions();
 #include <OpenGLES/ES2/gl.h>
 #endif
 
-#endif // NephilimGLHelpers_h__
+#endif // REX_GL_INCLUDES_HPP_

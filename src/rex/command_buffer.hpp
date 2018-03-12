@@ -35,7 +35,7 @@ namespace rex
 	struct command
 	{
         type_t       type;
-		handle       hnd;
+        handle       handle;
 	};
 
     /*

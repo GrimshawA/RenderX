@@ -1,8 +1,6 @@
-//#include <RenderX/OpenGL/GLHelpers.h>
+#include "gl_helpers.hpp"
 
-//void cglPrepareExtensions()
-//{
-//#if defined NEPHILIM_DESKTOP
-//	glewInit();
-//#endif
-//}
+void cglPrepareExtensions()
+{
+    glewInit();
+}

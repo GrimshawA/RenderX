@@ -1,13 +1,15 @@
 #ifndef REX_PIPELINE_HPP_
 #define REX_PIPELINE_HPP_
 
+#include <vector>
+
 namespace rex
 {
     class pipeline_init_info
     {
     public:
-        std::vector<char> vertex_shader_src = "shaders/vert.spv";
-        std::vector<char> fragment_shader_src = "shaders/frag.spv";
+        //std::vector<char> vertex_shader_src = "shaders/vert.spv";
+        //std::vector<char> fragment_shader_src = "shaders/frag.spv";
     };
 
 	class pipeline

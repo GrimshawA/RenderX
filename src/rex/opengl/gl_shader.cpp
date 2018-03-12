@@ -1,341 +1,323 @@
-//#include <RenderX/OpenGL/GLShader.h>
-//#include <RenderX/OpenGL/GLHelpers.h>
+#include "gl_shader.hpp"
 
-//#include <bitcore/Logger.h>
-//#include <bitcore/io/File.h>
+namespace rex
+{
+    gl_shader_program::gl_shader_program()
+        : m_id(0)
+    {
+    }
 
-//NEPHILIM_NS_BEGIN
+    gl_shader_program::~gl_shader_program()
+    {
+        release();
+    }
 
-///// Constructs an uninitialized shader
-///// The program identifier is initialized at 0.
-///// This means an invalid shader, which causes, not guaranteed, that the fixed-pipeline is activated
-//GLShader::GLShader()
-//    : m_id(0)
-//{
-//}
-
-//GLShader::~GLShader()
-//{
-//    release();
-//}
-
-//void GLShader::load(const std::vector<ShaderSource>& sources)
-//{
-//    for(auto& it : sources)
-//    {
-//        if (it.type == Shader::VERTEX_SHADER)
-//            loadShader(GLShader::VertexUnit, it.source.c_str());
-//        else if (it.type == Shader::FRAGMENT_SHADER)
-//            loadShader(GLShader::FragmentUnit, it.source.c_str());
-//    }
-
-//    addAttributeLocation(0, "vertex");
-//    addAttributeLocation(1, "color");
-//    addAttributeLocation(2, "texCoord");
-
-//    create();
-
-//    bind();
-//}
-
-//void GLShader::release()
-//{
-//    if(m_id > 0)
-//    {
-//        // Attach compiled shaders
-//        for(std::vector<std::pair<ShaderTypes, unsigned int> >::iterator it = m_shaders.begin(); it != m_shaders.end(); ++it)
+    void gl_shader_program::load(const std::vector<ShaderSource>& sources)
+    {
+//        for(auto& it : sources)
 //        {
-//            glDeleteShader(static_cast<GLuint>(it->second));
+//            if (it.type == Shader::VERTEX_SHADER)
+//                loadShader(GLShader::VertexUnit, it.source.c_str());
+//            else if (it.type == Shader::FRAGMENT_SHADER)
+//                loadShader(GLShader::FragmentUnit, it.source.c_str());
 //        }
 
-//        glDeleteProgram(m_id);
+//        addAttributeLocation(0, "vertex");
+//        addAttributeLocation(1, "color");
+//        addAttributeLocation(2, "texCoord");
 
-//        m_shaders.clear();
-//        m_attribs.clear();
-//        m_id = 0;
-//    }
-//}
+//        create();
 
-///// Binds variables in the program to predefined location index
-///// Just pass the location you want to be assigned to the variable name
-///// Calling this function only makes sense BEFORE calling create().
-//void GLShader::addAttributeLocation(unsigned int location, const String& name)
-//{
-//    m_attribs.push_back(std::make_pair(location,name));
-//}
+//        bind();
+    }
 
-//String getFileContents(const String& filename)
-//{
-//    File myFile(filename, IODevice::TextRead);
-//    if(!myFile)
-//        return "";
+    void gl_shader_program::release()
+    {
+        if(m_id > 0)
+        {
+            // Attach compiled shaders
+            for(std::vector<std::pair<ShaderTypes, unsigned int> >::iterator it = m_shaders.begin(); it != m_shaders.end(); ++it)
+            {
+                glDeleteShader(static_cast<GLuint>(it->second));
+            }
 
-//    String contents;
+            glDeleteProgram(m_id);
 
-//    while(!myFile.atEnd())
-//        contents += myFile.getChar();
+            m_shaders.clear();
+            m_attribs.clear();
+            m_id = 0;
+        }
+    }
 
-//    contents += '\0';
+    void gl_shader_program::addAttributeLocation(unsigned int location, const std::string& name)
+    {
+        m_attribs.push_back(std::make_pair(location,name));
+    }
 
-//    return contents;
-//}
+    std::string getFileContents(const std::string& filename)
+    {
+        return std::string();
+//        File myFile(filename, IODevice::TextRead);
+//        if(!myFile)
+//            return "";
 
-///// Compiles a shader to be linked when create() is called, from a source file
-//bool GLShader::loadShaderFromFile(ShaderTypes type, const String& filename)
-//{
-//    bool success = false;
+//        String contents;
 
-//    GLuint shader = 0;
+//        while(!myFile.atEnd())
+//            contents += myFile.getChar();
 
-//    switch(type)
-//    {
-//    case VertexUnit:	shader = glCreateShader(GL_VERTEX_SHADER);	break;
-//    case FragmentUnit:	shader = glCreateShader(GL_FRAGMENT_SHADER);   break;
-//    }
+//        contents += '\0';
 
-//    String shaderCode = getFileContents(filename);
-//    const char* source = shaderCode.c_str();
+//        return contents;
+    }
 
-//    if (shader) {
-//        glShaderSource(shader, 1, &source, NULL);
-//        glCompileShader(shader);
-//        GLint compiled = 0;
-//        glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
-//        if (!compiled) {
-//            GLint infoLen = 0;
-//            glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
-//            if (infoLen) {
-//                char* buf = new char[infoLen];
-//                if (buf) {
-//                    glGetShaderInfoLog(shader, infoLen, NULL, buf);
-//                    //PRINTLOG("GLSL", "Failed to load shader: %s\n", buf);
-//                    String mstr(buf);
-//                    mstr.removeCharacter('\r');
-//                    mstr.removeCharacter('\n');
-//                    Log("Error: %s", mstr.c_str());
-//                    delete [] buf;
-//                }
-//                glDeleteShader(shader);
-//                shader = 0;
-//            }
-//        }
-//        else
-//        {
-//            m_shaders.push_back(std::make_pair(type, static_cast<unsigned int>(shader)));
-//            success = true;
-//        }
-//    }
+    bool gl_shader_program::loadShaderFromFile(ShaderTypes type, const std::string& filename)
+    {
+        bool success = false;
 
-//    return success;
-//}
+        GLuint shader = 0;
 
-///// Compiles a shader to be linked when create() is called
-//bool GLShader::loadShader(ShaderTypes type, const char* source)
-//{
-//    bool success = false;
+        switch(type)
+        {
+        case VertexUnit:	shader = glCreateShader(GL_VERTEX_SHADER);	break;
+        case FragmentUnit:	shader = glCreateShader(GL_FRAGMENT_SHADER);   break;
+        }
 
-//    GLuint shader = 0;
+        std::string shaderCode = getFileContents(filename);
+        const char* source = shaderCode.c_str();
 
-//    switch(type)
-//    {
-//    case VertexUnit:	shader = glCreateShader(GL_VERTEX_SHADER);	break;
-//    case FragmentUnit:	shader = glCreateShader(GL_FRAGMENT_SHADER);   break;
-//    }
+        if (shader)
+        {
+            glShaderSource(shader, 1, &source, NULL);
+            glCompileShader(shader);
+            GLint compiled = 0;
+            glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
+            if (!compiled) {
+                GLint infoLen = 0;
+                glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
+                if (infoLen) {
+                    char* buf = new char[infoLen];
+                    if (buf) {
+                        glGetShaderInfoLog(shader, infoLen, NULL, buf);
+                        //PRINTLOG("GLSL", "Failed to load shader: %s\n", buf);
+                        std::string mstr(buf);
+//                        mstr.removeCharacter('\r');
+//                        mstr.removeCharacter('\n');
+//                        Log("Error: %s", mstr.c_str());
+                        delete [] buf;
+                    }
+                    glDeleteShader(shader);
+                    shader = 0;
+                }
+            }
+            else
+            {
+                m_shaders.push_back(std::make_pair(type, static_cast<unsigned int>(shader)));
+                success = true;
+            }
+        }
 
-//    if (shader) {
-//        glShaderSource(shader, 1, &source, NULL);
-//        glCompileShader(shader);
-//        GLint compiled = 0;
-//        glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
-//        if (!compiled) {
-//            GLint infoLen = 0;
-//            glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
-//            if (infoLen) {
-//                char* buf = new char[infoLen];
-//                if (buf) {
-//                    glGetShaderInfoLog(shader, infoLen, NULL, buf);
-//                    //PRINTLOG("GLSL", "Failed to load shader: %s\n", buf);
-//                    String mstr(buf);
-//                    mstr.removeCharacter('\r');
-//                    mstr.removeCharacter('\n');
-//                    Log("Error: %s", mstr.c_str());
-//                    //std::cout << "GLSL: " << mstr << std::endl;
-//                    delete [] buf;
-//                }
-//                glDeleteShader(shader);
-//                shader = 0;
-//            }
-//        }
-//        else
-//        {
-//            m_shaders.push_back(std::make_pair(type, static_cast<unsigned int>(shader)));
-//            success = true;
-//        }
-//    }
+        return success;
+    }
 
-//    return success;
-//}
+    bool gl_shader_program::loadShader(ShaderTypes type, const char* source)
+    {
+        bool success = false;
 
-///// Binds the shader to the GPU
-//void GLShader::bind() const
-//{
-//    glUseProgram(static_cast<GLuint>(m_id));
-//}
+        GLuint shader = 0;
 
-//unsigned int GLShader::getIdentifier()
-//{
-//    return m_id;
-//}
+        switch(type)
+        {
+        case VertexUnit:	shader = glCreateShader(GL_VERTEX_SHADER);	break;
+        case FragmentUnit:	shader = glCreateShader(GL_FRAGMENT_SHADER);   break;
+        }
 
+        if (shader) {
+            glShaderSource(shader, 1, &source, NULL);
+            glCompileShader(shader);
+            GLint compiled = 0;
+            glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
+            if (!compiled) {
+                GLint infoLen = 0;
+                glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
+                if (infoLen) {
+                    char* buf = new char[infoLen];
+                    if (buf) {
+                        glGetShaderInfoLog(shader, infoLen, NULL, buf);
+                        //PRINTLOG("GLSL", "Failed to load shader: %s\n", buf);
+                        std::string mstr(buf);
+//                        mstr.removeCharacter('\r');
+//                        mstr.removeCharacter('\n');
+//                        Log("Error: %s", mstr.c_str());
+                        //std::cout << "GLSL: " << mstr << std::endl;
+                        delete [] buf;
+                    }
+                    glDeleteShader(shader);
+                    shader = 0;
+                }
+            }
+            else
+            {
+                m_shaders.push_back(std::make_pair(type, static_cast<unsigned int>(shader)));
+                success = true;
+            }
+        }
 
-///// Creates and links the program from previously compiled unit processors
-//bool GLShader::create()
-//{
-//    // There must be some shaders to create a program
-//    if(m_shaders.empty()) return false;
+        return success;
+    }
 
-//    bool success = false;
+    void gl_shader_program::bind() const
+    {
+        glUseProgram(static_cast<GLuint>(m_id));
+    }
 
-//    GLuint id = glCreateProgram();
-//    if(id)
-//    {
-//        // Bind attribute locations
-//        for(std::vector<std::pair<unsigned int, String> >::iterator it = m_attribs.begin(); it != m_attribs.end(); ++it)
-//        {
-//            glBindAttribLocation(id, static_cast<GLuint>(it->first), static_cast<const GLchar*>(it->second.c_str()));
-//        }
+    unsigned int gl_shader_program::getIdentifier()
+    {
+        return m_id;
+    }
 
-//        // Attach compiled shaders
-//        for(std::vector<std::pair<ShaderTypes, unsigned int> >::iterator it = m_shaders.begin(); it != m_shaders.end(); ++it)
-//        {
-//            glAttachShader(id, static_cast<GLuint>(it->second));
-//        }
+    bool gl_shader_program::create()
+    {
+        // There must be some shaders to create a program
+        if(m_shaders.empty()) return false;
 
-//        // Link the program
-//        glLinkProgram(id);
+        bool success = false;
 
-//        GLint linkStatus = GL_FALSE;
-//        glGetProgramiv(id, GL_LINK_STATUS, &linkStatus);
-//        if (linkStatus != GL_TRUE)
-//        {
-//            // -- re do
-//            GLint bufLength = 0;
-//            glGetProgramiv(id, GL_INFO_LOG_LENGTH, &bufLength);
-//            if (bufLength) {
-//                char* buf = new char[bufLength+1];
-//                if (buf) {
-//                    glGetProgramInfoLog(id, bufLength, NULL, buf);
-//                    buf[bufLength] = '\0';
-//                    String mstr(buf);
-//                    mstr.removeCharacter('\r');
-//                    mstr.removeCharacter('\n');
-//                    Log("Error: %s", mstr.c_str());
-//                    //std::cout << "GLSL: " << mstr << std::endl;
-//                    //PRINTLOG("GLSL", "Failed to link shader program(%d): %s\n",mstr.length(), mstr.c_str());
-//                    delete [] buf;
-//                }
-//            }
-//            // --
+        GLuint id = glCreateProgram();
+        if(id)
+        {
+            // Bind attribute locations
+            for(std::vector<std::pair<unsigned int, std::string> >::iterator it = m_attribs.begin(); it != m_attribs.end(); ++it)
+            {
+                glBindAttribLocation(id, static_cast<GLuint>(it->first), static_cast<const GLchar*>(it->second.c_str()));
+            }
 
-//            glDeleteProgram(id);
-//            id = 0;
-//        }
-//        else success = true;
-//    }
-//    m_id = static_cast<unsigned int>(id);
-//    return success;
-//}
+            // Attach compiled shaders
+            for(std::vector<std::pair<ShaderTypes, unsigned int> >::iterator it = m_shaders.begin(); it != m_shaders.end(); ++it)
+            {
+                glAttachShader(id, static_cast<GLuint>(it->second));
+            }
 
-//void GLShader::setUniformi(const String& uniform, int value)
-//{
-//    bind();
-//    GLint uniform_id = glGetUniformLocation(m_id, uniform.c_str());
-//    if(uniform_id != -1)
-//    {
-//        glUniform1i(uniform_id, value);
-//    }
-//}
+            // Link the program
+            glLinkProgram(id);
 
-//bool GLShader::setUniformMatrix(const String& uniform, const float* values)
-//{
-//    bind();
-//    GLint uniform_id = glGetUniformLocation(m_id, uniform.c_str());
-//    if(uniform_id != -1)
-//    {
-//        glUniformMatrix4fv(uniform_id, 1, GL_FALSE, values);
-//        return true;
-//    }
-//    return false;
-//}
+            GLint linkStatus = GL_FALSE;
+            glGetProgramiv(id, GL_LINK_STATUS, &linkStatus);
+            if (linkStatus != GL_TRUE)
+            {
+                // -- re do
+                GLint bufLength = 0;
+                glGetProgramiv(id, GL_INFO_LOG_LENGTH, &bufLength);
+                if (bufLength) {
+                    char* buf = new char[bufLength+1];
+                    if (buf) {
+                        glGetProgramInfoLog(id, bufLength, NULL, buf);
+                        buf[bufLength] = '\0';
+                        std::string mstr(buf);
+//                        mstr.removeCharacter('\r');
+//                        mstr.removeCharacter('\n');
+//                        Log("Error: %s", mstr.c_str());
+                        //std::cout << "GLSL: " << mstr << std::endl;
+                        //PRINTLOG("GLSL", "Failed to link shader program(%d): %s\n",mstr.length(), mstr.c_str());
+                        delete [] buf;
+                    }
+                }
+                // --
 
-//bool GLShader::setUniformVec4(const String& uniform, const float* values)
-//{
-//    bind();
-//    GLint uniform_id = glGetUniformLocation(m_id, uniform.c_str());
-//    if(uniform_id != -1)
-//    {
-//        glUniform4fv(uniform_id, 1, values);
-//        return true;
-//    }
-//    return false;
-//}
+                glDeleteProgram(id);
+                id = 0;
+            }
+            else success = true;
+        }
+        m_id = static_cast<unsigned int>(id);
+        return success;
+    }
 
-//bool GLShader::setUniformVec3(const String& uniform, const float* values)
-//{
-//    bind();
-//    GLint uniform_id = glGetUniformLocation(m_id, uniform.c_str());
-//    if(uniform_id != -1)
-//    {
-//        glUniform3fv(uniform_id, 1, values);
-//        return true;
-//    }
-//    return false;
-//}
+    void gl_shader_program::setUniformi(const std::string& uniform, int value)
+    {
+        bind();
+        GLint uniform_id = glGetUniformLocation(m_id, uniform.c_str());
+        if(uniform_id != -1)
+        {
+            glUniform1i(uniform_id, value);
+        }
+    }
 
-//bool GLShader::setUniformFloat(const String& uniform, float value)
-//{
-//    bind();
-//    GLint uniform_id = glGetUniformLocation(m_id, uniform.c_str());
-//    if(uniform_id != -1)
-//    {
-//        glUniform1f(uniform_id, value);
-//        return true;
-//    }
-//    return false;
-//}
+    bool gl_shader_program::setUniformMatrix(const std::string& uniform, const float* values)
+    {
+        bind();
+        GLint uniform_id = glGetUniformLocation(m_id, uniform.c_str());
+        if(uniform_id != -1)
+        {
+            glUniformMatrix4fv(uniform_id, 1, GL_FALSE, values);
+            return true;
+        }
+        return false;
+    }
 
-//bool GLShader::setUniformTexture(const String& uniform, int textureUnit)
-//{
-//    bind();
-//    GLint uniform_id = glGetUniformLocation(m_id, uniform.c_str());
-//    if(uniform_id != -1)
-//    {
-//        glUniform1i(uniform_id, textureUnit);
-//        return true;
-//    }
-//    return false;
-//}
+    bool gl_shader_program::setUniformVec4(const std::string& uniform, const float* values)
+    {
+        bind();
+        GLint uniform_id = glGetUniformLocation(m_id, uniform.c_str());
+        if(uniform_id != -1)
+        {
+            glUniform4fv(uniform_id, 1, values);
+            return true;
+        }
+        return false;
+    }
 
-///// Returns whether or not shaders can be used at the moment
-///// The result of this function depends primarily on the machine you're running the program on
-//bool GLShader::isAvailable()
-//{
-//    return true;
-//}
+    bool gl_shader_program::setUniformVec3(const std::string& uniform, const float* values)
+    {
+        bind();
+        GLint uniform_id = glGetUniformLocation(m_id, uniform.c_str());
+        if(uniform_id != -1)
+        {
+            glUniform3fv(uniform_id, 1, values);
+            return true;
+        }
+        return false;
+    }
 
-///// Returns the internal id of the currently in-use program by OpenGL
-//unsigned int GLShader::getCurrentActiveProgram()
-//{
-//    GLint id;
-//    glGetIntegerv(GL_CURRENT_PROGRAM, &id);
-//    return static_cast<unsigned int>(id);
-//}
+    bool gl_shader_program::setUniformFloat(const std::string& uniform, float value)
+    {
+        bind();
+        GLint uniform_id = glGetUniformLocation(m_id, uniform.c_str());
+        if(uniform_id != -1)
+        {
+            glUniform1f(uniform_id, value);
+            return true;
+        }
+        return false;
+    }
 
-///// Returns the string
-//String GLShader::getVersion()
-//{
-//    const GLubyte* str = glGetString(GL_SHADING_LANGUAGE_VERSION);
-//    return reinterpret_cast<const char*>(str);
-//}
+    bool gl_shader_program::setUniformTexture(const std::string& uniform, int textureUnit)
+    {
+        bind();
+        GLint uniform_id = glGetUniformLocation(m_id, uniform.c_str());
+        if(uniform_id != -1)
+        {
+            glUniform1i(uniform_id, textureUnit);
+            return true;
+        }
+        return false;
+    }
 
-//NEPHILIM_NS_END
+    bool gl_shader_program::isAvailable()
+    {
+        return true;
+    }
+
+    unsigned int gl_shader_program::getCurrentActiveProgram()
+    {
+        GLint id;
+        glGetIntegerv(GL_CURRENT_PROGRAM, &id);
+        return static_cast<unsigned int>(id);
+    }
+
+    std::string gl_shader_program::getVersion()
+    {
+        const GLubyte* str = glGetString(GL_SHADING_LANGUAGE_VERSION);
+        return reinterpret_cast<const char*>(str);
+    }
+}
