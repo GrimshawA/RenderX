@@ -8,7 +8,7 @@ namespace rex
     gl_device::gl_device()
     {
         cglPrepareExtensions();
-        glDisable(GL_LIGHTING);
+        //glDisable(GL_LIGHTING);
     }
 
     void gl_device::submit(const command_buffer& buffer)
@@ -35,7 +35,7 @@ namespace rex
         _pipeline = p;
 
         // Activate the program the pipeline contains
-        glUseProgram(p->program->m_id);
+        //glUseProgram(p->program->m_id);
     }
 
     void gl_device::draw(gl_vertex_buffer* buffer)

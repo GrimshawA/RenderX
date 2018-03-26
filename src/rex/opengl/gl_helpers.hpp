@@ -4,7 +4,7 @@
 void cglPrepareExtensions();
 
 /// All desktop platforms
-#if defined __WIN32
+#if defined __WIN32 || defined __WIN64
 #define GLEW_STATIC
 #include <GL/glew.h>
 #ifdef NEPHILIM_OSX

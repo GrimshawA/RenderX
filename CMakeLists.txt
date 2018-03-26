@@ -22,6 +22,8 @@ add_library(rex SHARED ${rex_sources}
                                            ${vk_sources}
 					   )
 
+target_include_directories(rex PRIVATE src/rex)
+
 if (Vulkan_FOUND)
 	target_include_directories(rex PRIVATE ../glfw/include
                                                ${Vulkan_INCLUDE_DIR}
