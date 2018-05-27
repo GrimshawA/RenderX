@@ -1,4 +1,5 @@
 #include "gl_shader.hpp"
+#include <iostream>
 
 namespace rex
 {
@@ -54,23 +55,6 @@ namespace rex
         m_attribs.push_back(std::make_pair(location,name));
     }
 
-    std::string getFileContents(const std::string& filename)
-    {
-        return std::string();
-//        File myFile(filename, IODevice::TextRead);
-//        if(!myFile)
-//            return "";
-
-//        String contents;
-
-//        while(!myFile.atEnd())
-//            contents += myFile.getChar();
-
-//        contents += '\0';
-
-//        return contents;
-    }
-
     bool gl_shader_program::loadShaderFromFile(ShaderTypes type, const std::string& filename)
     {
         bool success = false;
@@ -83,7 +67,7 @@ namespace rex
         case FragmentUnit:	shader = glCreateShader(GL_FRAGMENT_SHADER);   break;
         }
 
-        std::string shaderCode = getFileContents(filename);
+        std::string shaderCode; /*getFileContents(filename);*/
         const char* source = shaderCode.c_str();
 
         if (shader)
@@ -99,11 +83,8 @@ namespace rex
                     char* buf = new char[infoLen];
                     if (buf) {
                         glGetShaderInfoLog(shader, infoLen, NULL, buf);
-                        //PRINTLOG("GLSL", "Failed to load shader: %s\n", buf);
                         std::string mstr(buf);
-//                        mstr.removeCharacter('\r');
-//                        mstr.removeCharacter('\n');
-//                        Log("Error: %s", mstr.c_str());
+                        std::cout << "GLSL: " << mstr << std::endl;
                         delete [] buf;
                     }
                     glDeleteShader(shader);
@@ -144,12 +125,8 @@ namespace rex
                     char* buf = new char[infoLen];
                     if (buf) {
                         glGetShaderInfoLog(shader, infoLen, NULL, buf);
-                        //PRINTLOG("GLSL", "Failed to load shader: %s\n", buf);
                         std::string mstr(buf);
-//                        mstr.removeCharacter('\r');
-//                        mstr.removeCharacter('\n');
-//                        Log("Error: %s", mstr.c_str());
-                        //std::cout << "GLSL: " << mstr << std::endl;
+                        std::cout << "GLSL: " << mstr << std::endl;
                         delete [] buf;
                     }
                     glDeleteShader(shader);

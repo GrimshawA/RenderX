@@ -19,6 +19,10 @@ namespace rex
         explicit gl_device();
 
         void submit(const command_buffer& buffer) override;
+        pipeline* createPipeline(const pipeline_builder& info) override;
+
+        vertex_buffer* createVertexBuffer() override;
+        void wait() {}
 
     public:
 

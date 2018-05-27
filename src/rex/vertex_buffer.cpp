@@ -1,12 +1,16 @@
-//#include <RenderX/RxVertexBuffer.h>
-//#include <RenderX/RxInterfaces.h>
+#include "vertex_buffer.hpp"
 
-//RxVertexBuffer::RxVertexBuffer()
-//{
+namespace rex
+{
+    vertex_buffer::vertex_buffer()
+    {
 
-//}
+    }
 
-//RxVertexBuffer::~RxVertexBuffer()
-//{
+    vertex_buffer::~vertex_buffer()
+    {
 
-//}
+    }
+}
+
+

@@ -8,26 +8,44 @@ namespace rex
     gl_device::gl_device()
     {
         cglPrepareExtensions();
-        //glDisable(GL_LIGHTING);
     }
 
     void gl_device::submit(const command_buffer& buffer)
     {
-        for (std::size_t i = 0; buffer._cmds.size(); ++i)
+        for (std::size_t i = 0; i < buffer._cmds.size(); ++i)
         {
             auto& cmd = buffer._cmds[i];
 
             switch(cmd.type)
             {
+                case command_type::CLEAR_COLOR:
+                    glClearColor(_r, _g, _b, _a);
+                    glClear(GL_COLOR_BUFFER_BIT);
+                break;
+
                 case command_type::DRAW:
-                    draw(cmd.handle.cast<gl_vertex_buffer>());
+                    //draw(cmd.userData.cast<gl_vertex_buffer>());
                 break;
 
                 case command_type::SET_PIPELINE:
-                    set_pipeline(cmd.handle.cast<gl_pipeline>());
+                    gl_pipeline& pipe = static_cast<gl_pipeline&>(*cmd.pipe);
+                    pipe.shaderProgram.bind();
                 break;
             }
         }
+    }
+
+    pipeline* gl_device::createPipeline(const pipeline_builder& info)
+    {
+        gl_pipeline* p = new gl_pipeline(info);
+        return p;
+    }
+
+    vertex_buffer* gl_device::createVertexBuffer()
+    {
+        gl_vertex_buffer* vbo = new gl_vertex_buffer;
+        vbo->create();
+        return vbo;
     }
 
     void gl_device::set_pipeline(gl_pipeline* p)

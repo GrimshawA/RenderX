@@ -2,19 +2,34 @@
 #define REX_PIPELINE_HPP_
 
 #include <vector>
+#include <string>
 
 namespace rex
 {
-    class pipeline_init_info
+    class pipeline;
+    class device;
+
+    class pipeline_builder
     {
     public:
-        //std::vector<char> vertex_shader_src = "shaders/vert.spv";
-        //std::vector<char> fragment_shader_src = "shaders/frag.spv";
+
+        pipeline_builder& vertexShader(const std::string& vertexSrc);
+        pipeline_builder& fragmentShader(const std::string& fragSrc);
+
+        pipeline* build(device* dev);
+
+    //private:
+        std::string vertexSource;
+        std::string fragmentSource;
     };
 
 	class pipeline
 	{
-
+    public:
+        static pipeline_builder builder()
+        {
+            return pipeline_builder();
+        }
 	};
 }
 

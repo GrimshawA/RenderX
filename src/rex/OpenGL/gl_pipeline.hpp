@@ -2,19 +2,18 @@
 #define REX_GL_PIPELINE_HPP_
 
 #include "gl_shader.hpp"
+#include "../pipeline.hpp"
 #include <memory>
 
 namespace rex
 {
-    class gl_pipeline
+    class gl_pipeline : public pipeline
 	{
 	public:
+        explicit gl_pipeline(const pipeline_builder& info);
         ~gl_pipeline();
 
-        static gl_pipeline* make_default();
-
-    public:
-        gl_shader_program* program {nullptr};
+        gl_shader_program shaderProgram;
 	};
 }
 

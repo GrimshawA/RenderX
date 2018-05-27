@@ -12,7 +12,7 @@ namespace rex
         void load_geometry(const vertex_data& data, handle& h);
 
     private:
-        rc_command_buffer _rc_commands;
+        //rc_command_buffer _rc_commands;
         command_buffer    _commands;
     };
 }

@@ -17,6 +17,14 @@ namespace rex
         virtual ~vk_device();
 
         void submit(const command_buffer& buffer) override;
+        virtual pipeline* createPipeline(const pipeline_builder& info) override
+        {
+            return nullptr;
+        }
+        vertex_buffer* createVertexBuffer() override
+        {
+            return nullptr;
+        }
 
         void wait() override;
 
