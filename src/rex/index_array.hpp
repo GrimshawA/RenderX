@@ -1,7 +1,9 @@
 #ifndef RXINDEXARRAY_H__
 #define RXINDEXARRAY_H__
 
-#include <bitcore/Asset.h>
+#include "config.hpp"
+#include <vector>
+#include <stdint.h>
 
 /**
     \class RxIndexArray

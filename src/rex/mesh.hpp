@@ -2,7 +2,7 @@
 #define RXMESH_H__
 
 #include <bitcore/Config.h>
-#include "RxVertexArray.h"
+#include "rex::vertex_data.h"
 #include "RxIndexArray.h"
 #include "RxVertexDecl.h"
 #include <vector>
@@ -17,7 +17,7 @@ public:
     explicit RxMesh();
 
 private:
-    RxVertexArray m_geometry;
+    rex::vertex_data m_geometry;
     RxIndexArray  m_indices;
     RxVertexDecl  m_decl;
 };

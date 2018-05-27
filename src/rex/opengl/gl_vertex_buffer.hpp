@@ -50,7 +50,7 @@ namespace rex
         void resize(int32_t size, StorageMode mode);
 
         /// Upload a VertexArray to the GPU memory
-        //void upload(const RxVertexArray& vertexArray, StorageMode mode);
+        //void upload(const rex::vertex_data& vertexArray, StorageMode mode);
 
         /// Check if the VBO is valid (initialized)
         operator bool() const;

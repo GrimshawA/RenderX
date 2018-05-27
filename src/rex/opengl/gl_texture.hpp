@@ -2,7 +2,7 @@
 #define RENDERXOPENGLTEXTURE_H__
 
 #include <RenderX/RxInterfaces.h>
-#include <RenderX/RxTexture.h>
+#include <rex/texture.hpp>
 
 #include <bitcore/Vector.h>
 #include <bitcore/String.h>

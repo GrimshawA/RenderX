@@ -1,6 +1,8 @@
 #ifndef REX_SHADER_HPP_
 #define REX_SHADER_HPP_
 
+#include "config.hpp"
+
 namespace rex
 {
 	class shader
@@ -13,6 +15,10 @@ namespace rex
 	};
 }
 
+namespace detail
+{
+class GDI_ShaderProgram;
+}
 
 class REX_API ShaderSource
 {

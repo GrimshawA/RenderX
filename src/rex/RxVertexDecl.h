@@ -1,8 +1,9 @@
 #ifndef RXVERTEXDECL_H__
 #define RXVERTEXDECL_H__
 
-#include <bitcore/Config.h>
+#include "config.hpp"
 #include <vector>
+#include <stdint.h>
 
 /**
     \class Format

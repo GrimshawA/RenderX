@@ -1,7 +1,7 @@
 #ifndef RENDERXFRAMEBUFFER_H__
 #define RENDERXFRAMEBUFFER_H__
 
-#include <bitcore/Config.h>
+#include "config.hpp"
 
 class RxTexture;
 class RxFramebufferImpl;

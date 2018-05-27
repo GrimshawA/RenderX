@@ -1,10 +1,8 @@
 #ifndef RENDERXTEXTURE_H__
 #define RENDERXTEXTURE_H__
 
-#include <bitcore/Config.h>
-#include <bitcore/Vector.h>
-#include <bitcore/String.h>
-#include <bitcore/Asset.h>
+#include "config.hpp"
+#include <string>
 
 class Image;
 class RxTextureImpl;
@@ -30,7 +28,7 @@ class RxTextureImpl;
 	Texture2D can be extended for more specialized before and
 	even swap low level implementation on the fly.
 */
-class REX_API RxTexture : public DvAsset
+class REX_API RxTexture
 {
 public:
 	/// Construct the uninitialized texture
@@ -52,7 +50,7 @@ public:
 
 	/// Loads a texture from disk with the global graphics API
 	/// Should be avoided in favor of the central asset loading
-	bool loadFromFile(const String& filename);
+    bool loadFromFile(const std::string& filename);
 
 	/// Loads the texture from a image buffer
 	/// Should be avoided in favor of the central asset loading

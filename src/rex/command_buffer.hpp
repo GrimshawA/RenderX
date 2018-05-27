@@ -48,43 +48,13 @@ namespace rex
     class command_buffer
 	{
     public:
-        void clear()
-        {
-            _cmds.clear();
-        }
+        void clear();
 
-        void bind(pipeline* p)
-        {
-            command c;
-            c.type = command_type::SET_PIPELINE;
-            c.pipe = p;
-            _cmds.push_back(c);
-        }
-
-        void uploadVertices(vertex_buffer* vbo, void* data, std::size_t size)
-        {
-
-        }
-
-        void drawBuffer(vertex_buffer* vbo)
-        {
-            command c;
-            c.type = command_type::DRAW;
-            c.vbo = vbo;
-            _cmds.push_back(c);
-        }
-
-        void clearColor()
-        {
-            command c;
-            c.type = command_type::CLEAR_COLOR;
-            _cmds.push_back(c);
-        }
-
-        void setUniform(const std::string& name, int elem)
-        {
-            // Just for API mocking
-        }
+        void bind(pipeline* p);
+        void uploadVertices(vertex_buffer* vbo, void* data, std::size_t size);
+        void drawBuffer(vertex_buffer* vbo);
+        void clearColor();
+        void setUniform(const std::string& name, int elem);
 
     //private:
         std::vector<command> _cmds;
