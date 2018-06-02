@@ -15,6 +15,12 @@ namespace rex
         return *this;
     }
 
+    pipeline_builder& pipeline_builder::vertexInput(const vertex_decl& decl)
+    {
+        m_vertexInput = decl;
+        return *this;
+    }
+
     pipeline* pipeline_builder::build(device* dev)
     {
         return dev->createPipeline(*this);

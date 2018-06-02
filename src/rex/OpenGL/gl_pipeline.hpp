@@ -14,6 +14,20 @@ namespace rex
         ~gl_pipeline();
 
         gl_shader_program shaderProgram;
+
+        struct vertex_attribute
+        {
+            int index;
+            int size;
+            GLenum type; // GL_FLOAT for example
+            bool normalized;
+            int stride;
+            int offset;
+        };
+
+        GLenum primitive = GL_TRIANGLES;
+
+        std::vector<vertex_attribute> vertexAttribs;
 	};
 }
 

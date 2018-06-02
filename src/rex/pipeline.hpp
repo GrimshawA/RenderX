@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include "vertex_decl.hpp"
 
 namespace rex
 {
@@ -15,12 +16,14 @@ namespace rex
 
         pipeline_builder& vertexShader(const std::string& vertexSrc);
         pipeline_builder& fragmentShader(const std::string& fragSrc);
+        pipeline_builder& vertexInput(const vertex_decl& decl);
 
         pipeline* build(device* dev);
 
     //private:
         std::string vertexSource;
         std::string fragmentSource;
+        vertex_decl m_vertexInput;
     };
 
 	class pipeline

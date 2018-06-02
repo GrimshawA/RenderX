@@ -3,7 +3,7 @@ find_package(OpenGL)
 
 file(GLOB rex_sources
     "src/rex/*.cpp"
-    "src/rex/*.hpp"
+    "src/rex/*.h*"
 )
 
 file(GLOB gl_sources

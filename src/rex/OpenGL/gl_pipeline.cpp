@@ -11,6 +11,21 @@ namespace rex
         shaderProgram.addAttributeLocation(2, "texCoord");
         shaderProgram.create();
         shaderProgram.bind();
+
+        vertexAttribs.resize(info.m_vertexInput.attributes.size());
+
+        int currOffset = 0;
+        for (int i = 0; i < info.m_vertexInput.attributes.size(); ++i)
+        {
+            vertexAttribs[i].index = i;
+            vertexAttribs[i].normalized = false;
+            vertexAttribs[i].size = info.m_vertexInput.attributes[i].numComponents;
+            vertexAttribs[i].stride = sizeof(float) * 5;
+            vertexAttribs[i].type = GL_FLOAT;
+            vertexAttribs[i].offset = currOffset;
+
+            currOffset += sizeof(float) * vertexAttribs[i].size;
+        }
     }
 
     gl_pipeline::~gl_pipeline()

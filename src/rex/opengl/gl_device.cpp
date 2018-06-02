@@ -2,6 +2,7 @@
 #include "gl_pipeline.hpp"
 #include "gl_vertex_buffer.hpp"
 #include "gl_default_shaders.hpp"
+#include "gl_texture.hpp"
 
 namespace rex
 {
@@ -23,14 +24,36 @@ namespace rex
                     glClear(GL_COLOR_BUFFER_BIT);
                 break;
 
-                case command_type::DRAW:
-                    //draw(cmd.userData.cast<gl_vertex_buffer>());
-                break;
+                case command_type::LOAD_GEOMETRY: {
+                    auto* gl_vbo = (gl_vertex_buffer*)cmd.vertexUpload.vbo;
+                    glBindBuffer(GL_ARRAY_BUFFER, gl_vbo->mObject);
+                    glBufferData(GL_ARRAY_BUFFER, cmd.vertexUpload.size, cmd.vertexUpload.data, GL_STATIC_DRAW);
+                    break;
+                }
 
-                case command_type::SET_PIPELINE:
+                case command_type::DRAW: {
+
+                    auto* gl_vbo = (gl_vertex_buffer*)cmd.arrayDraw.vbo;
+                    gl_vbo->bind();
+                    glCullFace(GL_NONE);
+                    glDrawArrays(_pipeline->primitive, cmd.arrayDraw.offset, cmd.arrayDraw.size);
+                    break;
+                }
+
+                case command_type::SET_PIPELINE: {
                     gl_pipeline& pipe = static_cast<gl_pipeline&>(*cmd.pipe);
+                    _pipeline = &pipe;
                     pipe.shaderProgram.bind();
-                break;
+
+                    for (int i = 0; i < pipe.vertexAttribs.size(); ++i)
+                    {
+                        auto& attrib = pipe.vertexAttribs[i];
+                        glEnableVertexAttribArray(i);
+                        glVertexAttribPointer(i, attrib.size, attrib.type, attrib.normalized,
+                                              attrib.stride, (void*) attrib.offset);
+                    }
+                    break;
+                }
             }
         }
     }
@@ -46,6 +69,11 @@ namespace rex
         gl_vertex_buffer* vbo = new gl_vertex_buffer;
         vbo->create();
         return vbo;
+    }
+
+    texture* gl_device::createTexture()
+    {
+        return new gl_texture();
     }
 
     void gl_device::set_pipeline(gl_pipeline* p)

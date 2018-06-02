@@ -25,6 +25,10 @@ namespace rex
         {
             return nullptr;
         }
+        texture* createTexture() override
+        {
+            return nullptr;
+        }
 
         void wait() override;
 

@@ -37,8 +37,19 @@ namespace rex
 
         union {
             pipeline* pipe;
-            vertex_buffer* vbo;
             void* userData;
+
+            struct {
+                vertex_buffer* vbo;
+                void* data;
+                std::size_t size;
+            } vertexUpload;
+
+            struct {
+                vertex_buffer* vbo;
+                std::size_t offset;
+                std::size_t size;
+            } arrayDraw;
         };
 	};
 

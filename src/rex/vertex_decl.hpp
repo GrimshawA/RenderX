@@ -5,20 +5,20 @@
 #include <vector>
 #include <stdint.h>
 
+namespace rex {
+
 /**
     \class Format
     \brief Vertex format specification
 */
-class REX_API RxVertexDecl
+class REX_API vertex_decl
 {
 public:
 
-    ///< Hints about what an attribute is
-    enum AttributeHint
+    enum PresetTypes
     {
-        Position,
-        Color,
-        TexCoord
+        FLOAT3,
+        FLOAT2
     };
 
     /// \class Attribute
@@ -27,15 +27,21 @@ public:
     {
     public:
         Attribute();
-        Attribute(int32_t attributeByteSize, int32_t attributeNumComponents, AttributeHint attributeHint);
+        Attribute(PresetTypes type);
+        Attribute(int32_t attributeByteSize, int32_t attributeNumComponents);
 
         int32_t         size;            ///< Size, in bytes, of the data type
         int32_t         numComponents;   ///< Number of components that make up this attribute's data
-        AttributeHint hint;            ///< Hint about what this attribute actually is
     };
+
+    explicit vertex_decl();
+    explicit vertex_decl(std::initializer_list<Attribute> list);
+    explicit vertex_decl(const std::vector<Attribute>& attributes);
 
     bool                   segmented;  ///< Is each vertex contiguous or segmented in multiple arrays?
     std::vector<Attribute> attributes; ///< List of attributes that define the vertex format
 };
+
+}
 
 #endif // RXVERTEXDECL_H__

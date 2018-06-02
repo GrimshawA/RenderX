@@ -1,20 +1,20 @@
-//#include <RenderX/RxTexture.h>
-//#include <RenderX/RxDevice.h>
-//#include <RenderX/Impl/OpenGL/RxTextureGL.h>
+#include "texture.hpp"
+
+namespace rex {
 
 //bool RxTextureImpl::copyToImage(Image& image) const
 //{
-//	return false;
+//    return false;
 //}
 
 //bool RxTextureImpl::create(unsigned int width, unsigned int height)
 //{
-//	return false;
+//    return false;
 //}
 
 //bool RxTextureImpl::loadFromFile(const String& filename)
 //{
-//	return false;
+//    return false;
 //}
 
 //void RxTextureImpl::setRepeated(bool repeated)
@@ -29,7 +29,7 @@
 
 //bool RxTextureImpl::loadFromImage(const Image& image)
 //{
-//	return false;
+//    return false;
 //}
 
 //void RxTextureImpl::update(const uint8_t* pixels, unsigned int width, unsigned int height, unsigned int x, unsigned int y)
@@ -50,88 +50,87 @@
 
 //}
 
-////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
 
-//RxTexture::RxTexture()
-//: _impl(nullptr)
+texture::texture()
+{
+}
+
+texture::~texture()
+{
+}
+
+//void texture::generateMips()
 //{
-//	//_impl = gGraphicsDevice->createTexture2D();
+//    _impl->generateMips();
 //}
 
-//RxTexture::~RxTexture()
+//bool texture::create(std::size_t width, std::size_t height)
 //{
-//	delete _impl;
+//    if (!_impl)
+//        _impl = gGraphicsDevice->createTexture2D();
+
+//    return _impl->create(width, height);
 //}
 
-//void RxTexture::generateMips()
+//TVector2<int> texture::getSize() const
 //{
-//	_impl->generateMips();
+//    if (_impl)
+//        return _impl->getSize();
+//    else
+//        return TVector2<int>(0, 0);
 //}
 
-//bool RxTexture::create(std::size_t width, std::size_t height)
+//bool texture::loadFromFile(const String& filename)
 //{
-//	if (!_impl)
-//		_impl = gGraphicsDevice->createTexture2D();
+//    if (!_impl)
+//        _impl = gGraphicsDevice->createTexture2D();
 
-//	return _impl->create(width, height);
+//    return _impl->loadFromFile(filename);
 //}
 
-//TVector2<int> RxTexture::getSize() const
+//void texture::setRepeated(bool repeated)
 //{
-//	if (_impl)
-//		return _impl->getSize();
-//	else
-//		return TVector2<int>(0, 0);
+//    _impl->setRepeated(repeated);
 //}
 
-//bool RxTexture::loadFromFile(const String& filename)
+//void texture::setSmooth(bool smooth)
 //{
-//	if (!_impl)
-//		_impl = gGraphicsDevice->createTexture2D();
-
-//	return _impl->loadFromFile(filename);
+//    _impl->setSmooth(smooth);
 //}
 
-//void RxTexture::setRepeated(bool repeated)
+//bool texture::loadFromImage(const Image& image)
 //{
-//	_impl->setRepeated(repeated);
-//}
-
-//void RxTexture::setSmooth(bool smooth)
-//{
-//	_impl->setSmooth(smooth);
-//}
-
-//bool RxTexture::loadFromImage(const Image& image)
-//{
-//	if (!_impl)
+//    if (!_impl)
 //        _impl = RenderCore::instance()->createTexture2D();
 
-//	return _impl->loadFromImage(image);
+//    return _impl->loadFromImage(image);
 //}
 
-//void RxTexture::update(const uint8_t* pixels, unsigned int width, unsigned int height, unsigned int x, unsigned int y)
+//void texture::update(const uint8_t* pixels, unsigned int width, unsigned int height, unsigned int x, unsigned int y)
 //{
-//	_impl->update(pixels, width, height, x, y);
+//    _impl->update(pixels, width, height, x, y);
 //}
 
-//std::size_t RxTexture::getMaximumSize()
+//std::size_t texture::getMaximumSize()
 //{
 //    return RxTextureGL::getMaximumSize();
 //}
 
-//void RxTexture::update(const uint8_t* pixels)
+//void texture::update(const uint8_t* pixels)
 //{
-//	_impl->update(pixels);
+//    _impl->update(pixels);
 //}
 
-//void RxTexture::update(const Image& image)
+//void texture::update(const Image& image)
 //{
-//	_impl->update(image);
+//    _impl->update(image);
 //}
 
-//bool RxTexture::copyToImage(Image& image) const
+//bool texture::copyToImage(Image& image) const
 //{
-//	return true;
+//    return true;
 //}
+
+}
 

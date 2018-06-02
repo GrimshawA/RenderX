@@ -55,7 +55,7 @@ namespace rex
         /// Check if the VBO is valid (initialized)
         operator bool() const;
 
-    private:
+    //private:
         unsigned int mObject;
     };
 

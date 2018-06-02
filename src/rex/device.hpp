@@ -11,6 +11,7 @@ namespace rex
     class vertex_buffer;
     class pipeline;
     class pipeline_builder;
+    class texture;
 
     /**
         \class device
@@ -33,6 +34,7 @@ namespace rex
         virtual void wait() = 0;
         virtual pipeline* createPipeline(const pipeline_builder& info) = 0;
         virtual vertex_buffer* createVertexBuffer() = 0;
+        virtual texture* createTexture() = 0;
 
     public:
         void setClearColor(float r, float g, float b, float a)

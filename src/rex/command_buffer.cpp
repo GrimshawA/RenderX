@@ -17,14 +17,21 @@ void command_buffer::bind(pipeline* p)
 
 void command_buffer::uploadVertices(vertex_buffer* vbo, void* data, std::size_t size)
 {
-
+    command c;
+    c.type = command_type::LOAD_GEOMETRY;
+    c.vertexUpload.vbo = vbo;
+    c.vertexUpload.data = data;
+    c.vertexUpload.size = size;
+    _cmds.push_back(c);
 }
 
 void command_buffer::drawBuffer(vertex_buffer* vbo)
 {
     command c;
     c.type = command_type::DRAW;
-    c.vbo = vbo;
+    c.arrayDraw.vbo = vbo;
+    c.arrayDraw.offset = 0;
+    c.arrayDraw.size = 6;
     _cmds.push_back(c);
 }
 

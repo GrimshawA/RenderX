@@ -4,7 +4,7 @@
 #include <vector>
 #include <cstddef>
 #include "config.hpp"
-#include "RxVertexDecl.h"
+#include "vertex_decl.hpp"
 
 namespace rex
 {
@@ -24,7 +24,7 @@ namespace rex
     {
     public:
 
-        RxVertexDecl       format; ///< Format of the vertex data
+        vertex_decl       format; ///< Format of the vertex data
         std::vector<char>  _data;   ///< The vertex raw data
         std::size_t        count;  ///< Number of allocated vertices
 
@@ -38,7 +38,7 @@ namespace rex
         /// Get the raw pointer to the vertex data
         const void* data() const;
 
-        void addAttribute(int32_t componentByteSize, int32_t numComponents, RxVertexDecl::AttributeHint hint);
+        void addAttribute(int32_t componentByteSize, int32_t numComponents);
 
         void removeLast();
 
@@ -62,60 +62,6 @@ namespace rex
         void allocateData(int32_t vertexCount);
 
         static void removeDuplicateVertices(rex::vertex_data& varray, RxIndexArray& iarray);
-    };
-
-
-    /**
-        \class VertexArray2D
-        \brief Small and focused geometry container
-        VertexArray2D is a simple class to compose 2D geometry.
-        It allows you to make objects with position, color and texture coordinates only.
-        You can draw geometry in VertexArray2D with Renderer::draw directly.
-    */
-    class REX_API VertexArray2D
-    {
-    public:
-
-        /// \ingroup Graphics
-        /// \class Vertex
-        /// \brief Represents one unique vertex
-        /// Vertices are composed by a 2D position, a Color and a UV coordinate. This representation is exclusive to VertexArray2D usage.
-        class REX_API Vertex
-        {
-        public:
-            Vertex(){}
-
-            Vertex(Vector2 pos, Color col, Vector2 tex){
-                position = pos;
-                color = col;
-                texCoords = tex;
-            }
-
-            Vector2 position;
-            Color color;
-            Vector2 texCoords;
-        };
-
-        /// Constructs an empty vertex array with default primitive type - Quads
-        VertexArray2D();
-
-        VertexArray2D(Render::Primitive::Type primitiveType, unsigned int vertexCount);
-
-        /// Compute the bounds from the points in the array
-        FloatRect getBounds();
-
-        /// Clear the contents of the vertex array
-        void clear();
-
-        /// Append the vertex v to the current list
-        void append(const Vertex& v);
-
-        Vertex& operator[](unsigned int index);
-
-        std::vector<Vertex> m_vertices;
-        bool m_textured;
-
-        Render::Primitive::Type geometryType;
     };
 }
 

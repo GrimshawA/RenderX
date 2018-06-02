@@ -22,6 +22,7 @@ namespace rex
         pipeline* createPipeline(const pipeline_builder& info) override;
 
         vertex_buffer* createVertexBuffer() override;
+        texture* createTexture() override;
         void wait() {}
 
     public:
