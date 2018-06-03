@@ -1,5 +1,5 @@
 //#include <RenderX/RxFramebuffer.h>
-//#include <RenderX/RxTexture.h>
+//#include <RenderX/rex::texture.h>
 //#include <RenderX/RxDevice.h>
 
 //RxFramebuffer::RxFramebuffer()
@@ -22,7 +22,7 @@
 
 //}
 
-//void RxFramebuffer::setTexture(const RxTexture& texture)
+//void RxFramebuffer::setTexture(const rex::texture& texture)
 //{
 //    // TODO UNCOMMENT TO WORK
 ////	setTexture((detail::GDI_Texture2D*)texture._impl);

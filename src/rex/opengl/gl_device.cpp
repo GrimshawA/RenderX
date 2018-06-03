@@ -180,9 +180,9 @@ namespace rex
 //    }
 //}
 
-//void gl_device::setTexture(RxTexture* texture)
+//void gl_device::setTexture(rex::texture* texture)
 //{
-//    static_cast<RxTextureGL*>(texture->_impl)->bind();
+//    static_cast<rex::textureGL*>(texture->_impl)->bind();
 //}
 
 //RxFramebufferImpl* gl_device::createFramebuffer()
@@ -196,9 +196,9 @@ namespace rex
 //    return fbo;
 //}
 
-//RxTextureImpl* gl_device::createTexture2D()
+//rex::textureImpl* gl_device::createTexture2D()
 //{
-//    RxTextureGL* texture = new RxTextureGL();
+//    rex::textureGL* texture = new rex::textureGL();
 //    m_textures.push_back(texture);
 //    return texture;
 //}

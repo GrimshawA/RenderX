@@ -9,7 +9,7 @@
 
 NEPHILIM_NS_BEGIN
 
-class RxTextureGL;
+class rex::textureGL;
 
 /**
 	\class Framebuffer
@@ -55,12 +55,12 @@ public:
 	void activate();
 
 	/// Attaches a texture to the color attachment 0
-    void attachTexture(const RxTextureGL& texture);
+    void attachTexture(const rex::textureGL& texture);
 
 	/// Attempts to create the framebuffer
 	bool create();
 
-    virtual void setTexture(RxTextureImpl* texture);
+    virtual void setTexture(rex::textureImpl* texture);
 
 	virtual void setDepthBuffer(int width, int height);
 

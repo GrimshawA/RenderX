@@ -3,7 +3,7 @@
 
 #include "config.hpp"
 
-class RxTexture;
+class rex::texture;
 class RxFramebufferImpl;
 
 /**
@@ -19,7 +19,7 @@ public:
 	virtual void activate();
 
 	virtual void setRenderbuffer();
-	virtual void setTexture(const RxTexture& texture);
+	virtual void setTexture(const rex::texture& texture);
 	virtual void setDepthBuffer(int width, int height);
 
 private:

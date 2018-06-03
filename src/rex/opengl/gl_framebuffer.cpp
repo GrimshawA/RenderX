@@ -1,6 +1,6 @@
 //#include <RenderX/OpenGL/GLFramebuffer.h>
-//#include <RenderX/OpenGL/GLHelpers.h>
-//#include <RenderX/Impl/OpenGL/RxTextureGL.h>
+//#include <rex/OpenGL/gl_helpers.hpp>
+//#include <RenderX/Impl/OpenGL/rex::textureGL.h>
 
 //#include <bitcore/Logger.h>
 
@@ -44,7 +44,7 @@
 //}
 
 ///// Attaches a texture to the color attachment 0
-//void GLFramebuffer::attachTexture(const RxTextureGL& texture)
+//void GLFramebuffer::attachTexture(const rex::textureGL& texture)
 //{
 //	if(m_id == 0)
 //	{
@@ -61,10 +61,10 @@
 //	}
 //}
 
-//void GLFramebuffer::setTexture(RxTextureImpl* texture)
+//void GLFramebuffer::setTexture(rex::textureImpl* texture)
 //{
 //	activate();
-//    attachTexture(static_cast<RxTextureGL&>(*texture));
+//    attachTexture(static_cast<rex::textureGL&>(*texture));
 //}
 
 //bool GLFramebuffer::create()

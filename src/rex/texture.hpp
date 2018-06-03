@@ -1,5 +1,5 @@
-#ifndef RENDERXTEXTURE_H__
-#define RENDERXTEXTURE_H__
+#ifndef RENDERXTEXTURE_HPP_
+#define RENDERXTEXTURE_HPP_
 
 #include "config.hpp"
 #include <string>
@@ -9,7 +9,7 @@ namespace rex {
 class Image;
 
 /**
-    \class RxTexture
+    \class rex::texture
     \brief Interface for an internal texture resource
 
 	Texture2D is the base class for different two
@@ -79,8 +79,8 @@ public:
 
 //private:
     /// The actual texture resource, implemented in a low level renderer
-    //RxTextureImpl* _impl = nullptr;
+    //rex::textureImpl* _impl = nullptr;
 };
 
 }
-#endif // RENDERXTEXTURE_H__
+#endif // RENDERXTEXTURE_HPP_

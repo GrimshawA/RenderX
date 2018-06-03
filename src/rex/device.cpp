@@ -1,7 +1,7 @@
 //#include <RenderX/RxDevice.h>
 //#include <bitgraphics/Window.h>
 //#include <bitgraphics/API.h>
-//#include <RenderX/OpenGL/GLHelpers.h>
+//#include <rex/OpenGL/gl_helpers.hpp>
 //#include <RenderX/OpenGL/GLVertexBuffer.h>
 
 //#include <bitcore/Logger.h>
@@ -11,7 +11,7 @@
 //#include <RenderX/RxVertexArray.h>
 //#include <RenderX/RxIndexArray.h>
 
-//#include <RenderX/Impl/OpenGL/RxTextureGL.h>
+//#include <RenderX/Impl/OpenGL/rex::textureGL.h>
 
 ///// Global instance of graphics device, for the global calls
 //RenderCore* gGraphicsDevice = nullptr;
@@ -67,7 +67,7 @@
 //{
 //	Image whiteTexture;
 //	whiteTexture.create(1, 1, Color::White);
-//    m_defaultTexture = new RxTexture;
+//    m_defaultTexture = new rex::texture;
 //    m_defaultTexture->_impl = createTexture2D();
 //    m_defaultTexture->_impl->loadFromImage(whiteTexture);
 //}
@@ -77,7 +77,7 @@
 //	return "null";
 //}
 
-//RxTextureImpl* RenderCore::createTexture2D()
+//rex::textureImpl* RenderCore::createTexture2D()
 //{
 //	return nullptr;
 //}

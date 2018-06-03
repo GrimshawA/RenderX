@@ -2,50 +2,50 @@
 
 namespace rex {
 
-//bool RxTextureImpl::copyToImage(Image& image) const
+//bool rex::textureImpl::copyToImage(Image& image) const
 //{
 //    return false;
 //}
 
-//bool RxTextureImpl::create(unsigned int width, unsigned int height)
+//bool rex::textureImpl::create(unsigned int width, unsigned int height)
 //{
 //    return false;
 //}
 
-//bool RxTextureImpl::loadFromFile(const String& filename)
+//bool rex::textureImpl::loadFromFile(const String& filename)
 //{
 //    return false;
 //}
 
-//void RxTextureImpl::setRepeated(bool repeated)
+//void rex::textureImpl::setRepeated(bool repeated)
 //{
 
 //}
 
-//void RxTextureImpl::setSmooth(bool smooth)
+//void rex::textureImpl::setSmooth(bool smooth)
 //{
 
 //}
 
-//bool RxTextureImpl::loadFromImage(const Image& image)
+//bool rex::textureImpl::loadFromImage(const Image& image)
 //{
 //    return false;
 //}
 
-//void RxTextureImpl::update(const uint8_t* pixels, unsigned int width, unsigned int height, unsigned int x, unsigned int y)
+//void rex::textureImpl::update(const uint8_t* pixels, unsigned int width, unsigned int height, unsigned int x, unsigned int y)
 //{
 
 //}
 
-//void RxTextureImpl::update(const uint8_t* pixels)
+//void rex::textureImpl::update(const uint8_t* pixels)
 //{
 //}
 
-//void RxTextureImpl::update(const Image& image)
+//void rex::textureImpl::update(const Image& image)
 //{
 //}
 
-//void RxTextureImpl::generateMips()
+//void rex::textureImpl::generateMips()
 //{
 
 //}
@@ -114,7 +114,7 @@ texture::~texture()
 
 //std::size_t texture::getMaximumSize()
 //{
-//    return RxTextureGL::getMaximumSize();
+//    return rex::textureGL::getMaximumSize();
 //}
 
 //void texture::update(const uint8_t* pixels)

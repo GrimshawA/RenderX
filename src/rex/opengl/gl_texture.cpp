@@ -37,7 +37,7 @@ gl_texture::~gl_texture()
     //unload();
 }
 
-//void RxTextureGL::unload()
+//void rex::textureGL::unload()
 //{
 //    if(m_texture > 0)
 //    {
@@ -47,12 +47,12 @@ gl_texture::~gl_texture()
 //    }
 //}
 
-//unsigned int RxTextureGL::getIdentifier() const
+//unsigned int rex::textureGL::getIdentifier() const
 //{
 //    return m_texture;
 //}
 
-//bool RxTextureGL::create(unsigned int width, unsigned int height)
+//bool rex::textureGL::create(unsigned int width, unsigned int height)
 //{
 //    // Check if texture parameters are valid before creating it
 //    if ((width == 0) || (height == 0))
@@ -107,7 +107,7 @@ gl_texture::~gl_texture()
 //    return true;
 //}
 
-//void RxTextureGL::generateMips()
+//void rex::textureGL::generateMips()
 //{
 //#ifdef NEPHILIM_DESKTOP
 //    bind();
@@ -118,14 +118,14 @@ gl_texture::~gl_texture()
 //}
 
 //////////////////////////////////////////////////////////////
-//void RxTextureGL::update(const Image& image)
+//void rex::textureGL::update(const Image& image)
 //{
 //    // Update the whole texture
 //    update(image.getPixelsPtr(), image.getSize().x, image.getSize().y, 0, 0);
 //}
 
 //////////////////////////////////////////////////////////////
-//void RxTextureGL::update(const uint8_t* pixels)
+//void rex::textureGL::update(const uint8_t* pixels)
 //{
 //    // Update the whole texture
 //    update(pixels, m_size.x, m_size.y, 0, 0);
@@ -133,7 +133,7 @@ gl_texture::~gl_texture()
 
 
 //////////////////////////////////////////////////////////////
-//unsigned int RxTextureGL::getValidSize(unsigned int size)
+//unsigned int rex::textureGL::getValidSize(unsigned int size)
 //{
 ////	ensureGlContext();
 
@@ -158,7 +158,7 @@ gl_texture::~gl_texture()
 //    return size;
 //}
 
-//bool RxTextureGL::loadFromImage(const Image &image)
+//bool rex::textureGL::loadFromImage(const Image &image)
 //{
 //    if(image.getSize().x == 0 && image.getSize().y == 0)
 //    {
@@ -230,7 +230,7 @@ gl_texture::~gl_texture()
 //    return true;
 //}
 
-//void RxTextureGL::setRepeated(bool repeated)
+//void rex::textureGL::setRepeated(bool repeated)
 //{
 //    m_isRepeated = repeated;
 
@@ -244,7 +244,7 @@ gl_texture::~gl_texture()
 //}
 
 
-//bool RxTextureGL::loadFromFile(const String &path){
+//bool rex::textureGL::loadFromFile(const String &path){
 //    bool result = false;
 //    Image image;
 //    result = image.loadFromFile(path);
@@ -253,7 +253,7 @@ gl_texture::~gl_texture()
 //}
 
 ///// Copy the texture buffer to an image
-//Image RxTextureGL::copyToImage() const
+//Image rex::textureGL::copyToImage() const
 //{
 
 //    // Easy case: empty texture
@@ -322,13 +322,13 @@ gl_texture::~gl_texture()
 //};
 
 
-//Vec2i RxTextureGL::getSize() const{
+//Vec2i rex::textureGL::getSize() const{
 //    return m_size;
 //}
 
 
 //////////////////////////////////////////////////////////////
-//void RxTextureGL::setSmooth(bool smooth)
+//void rex::textureGL::setSmooth(bool smooth)
 //{
 //    if (smooth != m_isSmooth)
 //    {
@@ -349,7 +349,7 @@ gl_texture::~gl_texture()
 //}
 
 //////////////////////////////////////////////////////////////
-//void RxTextureGL::update(const uint8_t* pixels, unsigned int width, unsigned int height, unsigned int x, unsigned int y)
+//void rex::textureGL::update(const uint8_t* pixels, unsigned int width, unsigned int height, unsigned int x, unsigned int y)
 //{
 //    /*assert(x + width <= m_size.x);
 //    assert(y + height <= m_size.y);*/
@@ -370,7 +370,7 @@ gl_texture::~gl_texture()
 //}
 
 //////////////////////////////////////////////////////////////
-//unsigned int RxTextureGL::getMaximumSize()
+//unsigned int rex::textureGL::getMaximumSize()
 //{
 //    //ensureGlContext();
 
@@ -380,13 +380,13 @@ gl_texture::~gl_texture()
 //    return static_cast<unsigned int>(size);
 //}
 
-//void RxTextureGL::bind() const
+//void rex::textureGL::bind() const
 //{
 //    glBindTexture(GL_TEXTURE_2D, m_texture);
 //};
 
 ///// Get the id of the currently bound texture for the currently set texture unit
-//unsigned int RxTextureGL::getCurrentBoundTexture()
+//unsigned int rex::textureGL::getCurrentBoundTexture()
 //{
 //    GLint id;
 //    glGetIntegerv(GL_TEXTURE_BINDING_2D, &id);
