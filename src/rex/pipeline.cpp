@@ -9,6 +9,12 @@ namespace rex
         return *this;
     }
 
+    pipeline_builder& pipeline_builder::vertexShader(const rex::sl::module& shaderModule)
+    {
+        m_vertexModule = shaderModule;
+        return *this;
+    }
+
     pipeline_builder& pipeline_builder::fragmentShader(const std::string& fragSrc)
     {
         fragmentSource = fragSrc;
