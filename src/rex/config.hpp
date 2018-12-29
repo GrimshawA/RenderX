@@ -3,7 +3,7 @@
 
 #define REX_API
 
-namespace Render
+namespace rex
 {
 	namespace Primitive
 	{

@@ -17,11 +17,11 @@ namespace rex
 
         std::cout << "FRAG SHADER IS:" << std::endl << fragShaderSrc << std::endl;
 
-        shaderProgram.loadShader(gl_shader_program::VertexUnit, info.vertexSource.c_str());
-        //shaderProgram.loadShader(gl_shader_program::VertexUnit, vertexShaderSrc.c_str());
+        //shaderProgram.loadShader(gl_shader_program::VertexUnit, info.vertexSource.c_str());
+        shaderProgram.loadShader(gl_shader_program::VertexUnit, vertexShaderSrc.c_str());
 
-        //shaderProgram.loadShader(gl_shader_program::FragmentUnit, fragShaderSrc.c_str());
-        shaderProgram.loadShader(gl_shader_program::FragmentUnit, info.fragmentSource.c_str());
+        shaderProgram.loadShader(gl_shader_program::FragmentUnit, fragShaderSrc.c_str());
+//        shaderProgram.loadShader(gl_shader_program::FragmentUnit, info.fragmentSource.c_str());
 
         shaderProgram.addAttributeLocation(0, "vertex");
         shaderProgram.addAttributeLocation(1, "color");
@@ -37,7 +37,7 @@ namespace rex
             vertexAttribs[i].index = i;
             vertexAttribs[i].normalized = false;
             vertexAttribs[i].size = info.m_vertexInput.attributes[i].numComponents;
-            vertexAttribs[i].stride = sizeof(float) * 7;
+            vertexAttribs[i].stride = sizeof(float) * 5;
             vertexAttribs[i].type = GL_FLOAT;
             vertexAttribs[i].offset = currOffset;
 

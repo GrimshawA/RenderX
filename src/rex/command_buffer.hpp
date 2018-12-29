@@ -9,8 +9,6 @@ namespace rex
 {
     class pipeline;
     class vertex_buffer;
-    class texture;
-    class bitmap;
 
 	enum struct command_type
 	{
@@ -68,7 +66,6 @@ namespace rex
         void drawBuffer(vertex_buffer* vbo);
         void clearColor();
         void setUniform(const std::string& name, int elem);
-        void uploadTexture(texture* tex, const bitmap& data);
 
     //private:
         std::vector<command> _cmds;

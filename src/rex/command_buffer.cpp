@@ -47,11 +47,4 @@ void command_buffer::setUniform(const std::string& name, int elem)
     // Just for API mocking
 }
 
-void command_buffer::uploadTexture(texture* tex, const bitmap& data)
-{
-    command c;
-    c.type = command_type::UPLOAD_IMAGE;
-    _cmds.push_back(c);
-}
-
 }
