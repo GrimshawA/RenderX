@@ -21,7 +21,7 @@ if (REX_BUILD_VULKAN)
     set(rex_sources ${rex_sources} ${vk_sources})
 endif()
 
-add_library(rex SHARED ${rex_sources} 
+add_library(rex STATIC ${rex_sources}
                        ${gl_sources})
 
 target_include_directories(rex PRIVATE src/rex
