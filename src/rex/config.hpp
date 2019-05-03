@@ -1,7 +1,7 @@
 #ifndef REX_CONFIG_HPP_
 #define REX_CONFIG_HPP_
 
-#define REX_API
+#define REX_API __declspec(dllexport)
 
 namespace rex
 {

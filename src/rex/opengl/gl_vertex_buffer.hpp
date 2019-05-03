@@ -4,10 +4,6 @@
 #include <stdint.h>
 #include "../vertex_buffer.hpp"
 
-#include <GL/glew.h>
-#include <GL/gl.h>
-#include <GL/glext.h>
-
 namespace rex
 {
     /**

@@ -1,6 +1,7 @@
 #ifndef REX_GL_PIPELINE_HPP_
 #define REX_GL_PIPELINE_HPP_
 
+#include "gl_helpers.hpp"
 #include "gl_shader.hpp"
 #include "../pipeline.hpp"
 #include <memory>

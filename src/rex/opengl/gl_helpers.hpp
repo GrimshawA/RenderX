@@ -1,12 +1,20 @@
 #ifndef REX_GL_INCLUDES_HPP_
 #define REX_GL_INCLUDES_HPP_
 
-void cglPrepareExtensions();
+#include "../config.hpp"
+
+REX_API void cglPrepareExtensions();
+
+#include <GL/glew.h>
+#include <GL/gl.h>
+//#include <GL/glext.h>
 
 /// All desktop platforms
 #if defined __WIN32 || defined __WIN64
 #define GLEW_STATIC
 #include <GL/glew.h>
+#include <GL/gl.h>
+#include <GL/glext.h>
 #ifdef NEPHILIM_OSX
 #include <OpenGL/gl.h>
 #else

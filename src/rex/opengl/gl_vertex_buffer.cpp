@@ -1,4 +1,5 @@
 #include "gl_vertex_buffer.hpp"
+#include "gl_helpers.hpp"
 
 namespace rex {
 
